@@ -35,5 +35,10 @@ namespace CheatingSkylines
             m_CashAmount.SetValue(Instance, RealAmount);
             m_CashDelta.SetValue(Instance, RealAmount);
         }
+
+        //https://gist.github.com/anonymous/c524671571c3879381b2
+
+        public static void EnableAchievements() =>
+            Singleton<SimulationManager>.instance.m_metaData.m_disableAchievements = SimulationMetaData.MetaBool.False;
     }
 }

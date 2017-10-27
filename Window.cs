@@ -20,6 +20,9 @@ namespace CheatingSkylines
 
             Money = (long)GUILayout.HorizontalSlider(Money, 1, 1000000000);
             
+            if(GUILayout.Button("Enable Achievements"))
+                Hack.EnableAchievements();
+            
             GUI.DragWindow();
         }
     }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace CheatingSkylines
 {
@@ -22,6 +23,9 @@ namespace CheatingSkylines
             
             if(GUILayout.Button("Enable Achievements"))
                 Hack.EnableAchievements();
+            
+            if(GUILayout.Button("Unlock Everything"))
+                Hack.UnlockEverything();
             
             GUI.DragWindow();
         }

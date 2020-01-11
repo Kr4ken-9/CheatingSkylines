@@ -38,9 +38,12 @@ namespace CheatingSkylines
 
             FieldInfo m_CashDelta =
                 typeof(EconomyManager).GetField("m_cashDelta", BFlags.NonPublicInstance);
+
+            long BCAM = (long) m_CashAmount.GetValue(Instance);
+            long BDelta = (long) m_CashDelta.GetValue(Instance);
             
-            m_CashAmount.SetValue(Instance, RealAmount);
-            m_CashDelta.SetValue(Instance, RealAmount);
+            m_CashAmount.SetValue(Instance, BCAM + RealAmount);
+            m_CashDelta.SetValue(Instance, BDelta + RealAmount);
         }
 
         //https://gist.github.com/anonymous/c524671571c3879381b2

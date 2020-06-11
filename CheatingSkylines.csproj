@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony, Version=2.0.1.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>Libraries\0Harmony.dll</HintPath>
+    </Reference>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>/References/CitySkylines/Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
@@ -54,7 +57,8 @@
     <Compile Include="CheatingSkylines\BFlags.cs" />
     <Compile Include="CheatingSkylines\Hack.cs" />
     <Compile Include="CheatingSkylines\Hook.cs" />
-    <Compile Include="Overrides\Overrides.cs" />
+    <Compile Include="Overrides\OV_DeveloperUI.cs" />
+    <Compile Include="Overrides\OV_MilestonesWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +68,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Libraries\0Harmony.dll" />
     <Content Include="Libraries\Assembly-CSharp.dll" />
     <Content Include="Libraries\ColossalManaged.dll" />
     <Content Include="Libraries\UnityEngine.dll" />

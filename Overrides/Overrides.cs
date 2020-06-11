@@ -1,7 +1,7 @@
 ﻿using System;
 using ColossalFramework;
 
-namespace CheatingSkylines
+namespace CheatingSkylines.Overrides
 {
     public class Overrides
     {

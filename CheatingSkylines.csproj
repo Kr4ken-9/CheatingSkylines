@@ -54,8 +54,7 @@
     <Compile Include="CheatingSkylines\BFlags.cs" />
     <Compile Include="CheatingSkylines\Hack.cs" />
     <Compile Include="CheatingSkylines\Hook.cs" />
-    <Compile Include="CheatingSkylines\Overrides.cs" />
-    <Compile Include="CheatingSkylines\Window.cs" />
+    <Compile Include="Overrides\Overrides.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -63,6 +62,11 @@
       <Project>{36da9e82-46d3-4681-9ede-92dd94f7dded}</Project>
       <Name>Redirection</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Libraries\Assembly-CSharp.dll" />
+    <Content Include="Libraries\ColossalManaged.dll" />
+    <Content Include="Libraries\UnityEngine.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

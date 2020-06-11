@@ -9,16 +9,46 @@ namespace CheatingSkylines
 {
     public class Hack : MonoBehaviour
     {
-        public static bool GUIEnabled = true;
-
-        public static OffsetBackup OnGetPopulationTarget;
-
-        public static OffsetBackup OnRefreshMilestones;
+        private bool GUIEnabled = true;
+        private OffsetBackup OnGetPopulationTarget;
+        private OffsetBackup OnRefreshMilestones;
         
+        #region GUI
+        
+        private Rect _windowRect = new Rect(20, 20, 250, 250);
+        private readonly Version _version = Assembly.GetExecutingAssembly().GetName().Version;
+        private DeveloperUI _devUI;
+        private bool omg = false;
+
+        private void DoWindow(int WindowID)
+        {
+            if(GUILayout.Button("Enable Achievements"))
+                EnableAchievements();
+            
+            if(GUILayout.Button("Unlock Everything"))
+                UnlockEverything();
+
+            if (GUILayout.Button("Toggle Dev UI"))
+            {
+                omg = !omg;
+                DevToggled(omg);
+            }
+            
+            GUI.DragWindow();
+        }
+
+        private void DevToggled(bool newValue)
+        {
+            if (newValue) _devUI = gameObject.AddComponent<DeveloperUI>();
+            else Destroy(_devUI);
+        }
+        
+        #endregion
+
         private void OnGUI()
         {
             if (GUIEnabled)
-                Window.DoGUI();
+                _windowRect = GUILayout.Window(0, _windowRect, DoWindow, $"Cheating Skylines by Kr4ken v{_version}");
         }
 
         private void Update()
@@ -27,31 +57,12 @@ namespace CheatingSkylines
                 GUIEnabled = !GUIEnabled;
         }
 
-        public static void AddMoney(long Amount)
-        {
-            EconomyManager Instance = Singleton<EconomyManager>.instance;
-
-            long RealAmount = Amount * 100;
-
-            FieldInfo m_CashAmount =
-                typeof(EconomyManager).GetField("m_cashAmount", BFlags.NonPublicInstance);
-
-            FieldInfo m_CashDelta =
-                typeof(EconomyManager).GetField("m_cashDelta", BFlags.NonPublicInstance);
-
-            long BCAM = (long) m_CashAmount.GetValue(Instance);
-            long BDelta = (long) m_CashDelta.GetValue(Instance);
-            
-            m_CashAmount.SetValue(Instance, BCAM + RealAmount);
-            m_CashDelta.SetValue(Instance, BDelta + RealAmount);
-        }
-
         //https://gist.github.com/anonymous/c524671571c3879381b2
-        public static void EnableAchievements() =>
+        private void EnableAchievements() =>
             Singleton<SimulationManager>.instance.m_metaData.m_disableAchievements = SimulationMetaData.MetaBool.False;
 
         //https://github.com/earalov/Skylines-UnlockAllWondersAndLandmarks
-        public static void UnlockEverything()
+        private void UnlockEverything()
         {
             UnlockManager Manager = Singleton<UnlockManager>.instance;
 
@@ -61,10 +72,10 @@ namespace CheatingSkylines
             IntPtr OriginalRefresh = typeof(MilestonesWrapper).GetMethod("OnRefreshMilestones", BFlags.PublicInstance)
                 .MethodHandle.GetFunctionPointer();
 
-            IntPtr NewPop = typeof(Overrides).GetMethod("OnGetPopulationTarget", BFlags.PublicInstance).MethodHandle
+            IntPtr NewPop = typeof(Overrides.Overrides).GetMethod("OnGetPopulationTarget", BFlags.PublicInstance).MethodHandle
                 .GetFunctionPointer();
 
-            IntPtr NewRefresh = typeof(Overrides).GetMethod("OnRefreshMilestones", BFlags.PublicInstance).MethodHandle
+            IntPtr NewRefresh = typeof(Overrides.Overrides).GetMethod("OnRefreshMilestones", BFlags.PublicInstance).MethodHandle
                 .GetFunctionPointer();
 
             OnGetPopulationTarget = Redirector.DetourFunction(OriginalPop, NewPop);

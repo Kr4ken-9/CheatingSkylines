@@ -5,28 +5,26 @@ namespace CheatingSkylines
 {
     public class Hook : MonoBehaviour
     {
-        public static GameObject HackObject;
-        public static Hack HackInstance;
-        public static Thread hookThread;
-        public static bool KeepAlive = true;
+        private static GameObject hackObject;
+        public static bool keepAlive = true;
         
-        public static void ThreadCreater()
+        public static void EntryPoint()
         {
-            hookThread = new Thread(HookThread);
+            Thread hookThread = new Thread(KeepAliveRoutine);
             hookThread.Start();
         }
 
-        private static void HookThread()
+        private static void KeepAliveRoutine()
         {
-            while (KeepAlive)
+            while (keepAlive)
             {
                 Thread.Sleep(1000);
 
-                if (HackObject == null || HackInstance == null)
+                if (hackObject == null)
                 {
-                    HackObject = new GameObject();
-                    HackInstance = HackObject.AddComponent<Hack>();
-                    DontDestroyOnLoad(HackObject);
+                    hackObject = new GameObject();
+                    hackObject.AddComponent<Hack>();
+                    DontDestroyOnLoad(hackObject);
                 }
 
                 Thread.Sleep(5000);
